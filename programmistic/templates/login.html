@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Вхід у систему</h1>
+
+    {% if form.errors %}
+        <p style="color: red;">Логін або пароль невірні. Спробуйте ще раз.</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label>Логін:</label>
+            <input type="text" name="username">
+        </p>
+        <p>
+            <label>Пароль:</label>
+            <input type="password" name="password">
+        </p>
+        <button type="submit">Увійти</button>
+    </form>
+    <p>Немає аккаунту? <a href="{% url 'register' %}">Зареєструватися</a></p>
+{% endblock %}

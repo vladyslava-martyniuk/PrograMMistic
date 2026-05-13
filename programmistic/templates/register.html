@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Реєстрація</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="registration-form">
+            {{ u_form.as_p }}
+        </div>
+
+        <br>
+        <button type="submit">Створити аккаунт</button>
+    </form>
+
+    <hr>
+    <p>Вже маєте аккаунт? <a href="{% url 'login' %}">Увійти сюди</a></p>
+{% endblock %}
