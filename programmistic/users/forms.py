@@ -11,12 +11,7 @@ class RegistrationForm(forms.ModelForm):
     )
     avatar = forms.ImageField(label='Аватар', required=False)
 
-    post = forms.ModelChoiceField(
-        queryset=Post.objects.all(),
-        label='Оберіть пост',
-        required=False,
-        empty_label="--- Оберіть пост ---"
-    )
+   
 
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повторіть пароль', widget=forms.PasswordInput)

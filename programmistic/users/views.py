@@ -11,6 +11,7 @@ def register(request):
 
         if u_form.is_valid():
             user = u_form.save(commit=False)
+
             user.set_password(u_form.cleaned_data['password1'])
             user.save()
 
@@ -18,11 +19,11 @@ def register(request):
                 user=user,
                 bio=u_form.cleaned_data['bio'],
                 avatar=u_form.cleaned_data['avatar'],
-                post=u_form.cleaned_data['post']
             )
 
             login(request, user)
             return redirect('dashboard')
+
     else:
         u_form = RegistrationForm()
 
@@ -37,6 +38,7 @@ def dashboard(request):
 @login_required
 def profile(request):
     user_profile = Profile.objects.get(user=request.user)
+
     return render(request, 'profile.html', {
         'user': request.user,
         'profile': user_profile
