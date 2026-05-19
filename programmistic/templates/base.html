@@ -8,9 +8,9 @@
     <header>
         <nav>
             <a href="{% url 'dashboard' %}">Головна</a> |
+            <a href="{% url 'post_list' %}">Пости</a> |
             {% if user.is_authenticated %}
-                <a href="{% url 'feed' %}">Стрічка
-                </a> |
+                <a href="{% url 'post_create' %}">Створити пост</a> |
                 <a href="{% url 'profile' %}">Мій профіль</a> |
                 <form action="{% url 'logout' %}" method="post" style="display:inline;">
                     {% csrf_token %}
@@ -25,7 +25,7 @@
     <hr>
 
     <main>
-        {% block content %} 
+        {% block content %}
         {% endblock %}
     </main>
 </body>
