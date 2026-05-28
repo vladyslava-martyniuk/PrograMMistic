@@ -5,13 +5,19 @@ from .models import Profile
 from .forms import RegistrationForm
 
 
+# 🔥 НОВА ГОЛОВНА ЛОГІКА
+def home(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    return redirect('login')
+
+
 def register(request):
     if request.method == 'POST':
         u_form = RegistrationForm(request.POST, request.FILES)
 
         if u_form.is_valid():
             user = u_form.save(commit=False)
-
             user.set_password(u_form.cleaned_data['password1'])
             user.save()
 

@@ -1,13 +1,78 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{{ button_text }}</button>
-</form>
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
 
-<p><a href="{% url 'post_list' %}">Назад до постів</a></p>
+    <div>
+        <h1 class="fw-bold text-info">
+            {{ title }}
+        </h1>
+        <p class="text-secondary mb-0">
+            Заповни форму нижче
+        </p>
+    </div>
+
+    <a href="{% url 'post_list' %}" class="btn btn-outline-light rounded-pill px-4">
+        <i class="bi bi-arrow-left"></i>
+        Назад
+    </a>
+
+</div>
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="card bg-dark text-light border-0 shadow-lg rounded-4">
+
+            <div class="card-body p-4">
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-style">
+                        {{ form.as_p }}
+                    </div>
+
+                    <button type="submit" class="btn btn-info w-100 mt-3 rounded-pill py-2 shadow">
+                        {{ button_text }}
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+/* Django form styling */
+.form-style p {
+    margin-bottom: 15px;
+}
+
+.form-style input,
+.form-style textarea,
+.form-style select {
+    width: 100%;
+    background: #111827;
+    border: 1px solid #374151;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 12px;
+    outline: none;
+}
+
+.form-style input:focus,
+.form-style textarea:focus,
+.form-style select:focus {
+    border-color: #0dcaf0;
+    box-shadow: 0 0 0 0.15rem rgba(13, 202, 240, 0.25);
+}
+</style>
+
 {% endblock %}

@@ -1,34 +1,155 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Пости</h1>
 
-{% if user.is_authenticated %}
-    <p><a href="{% url 'post_create' %}">Створити пост</a></p>
-{% endif %}
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 
-<form action="{% url 'post_list' %}" method="get">
-    <input type="text" name="search" placeholder="Пошук..." value="{{ query }}">
-    <button type="submit">Знайти</button>
+    <div>
+        <h1 class="fw-bold text-info mb-1">
+            <i class="bi bi-file-earmark-text"></i> Пости
+        </h1>
+        <p class="text-secondary mb-0">
+            Останні публікації спільноти PrograMMistic
+        </p>
+    </div>
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'post_create' %}" class="btn btn-info rounded-pill px-4 py-2 shadow">
+        <i class="bi bi-plus-circle"></i>
+        Створити пост
+    </a>
+    {% endif %}
+
+</div>
+
+<!-- Search -->
+<form action="{% url 'post_list' %}" method="get" class="mb-5">
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="search"
+            class="form-control bg-dark text-light border-secondary"
+            placeholder="Пошук постів..."
+            value="{{ query }}"
+        >
+
+        <button type="submit" class="btn btn-info">
+            <i class="bi bi-search"></i>
+            Знайти
+        </button>
+
+    </div>
 </form>
 
-{% for post in posts %}
-    <article>
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content }}</p>
-        <p>Автор: {{ post.user.username }}</p>
-        <p>Дата: {{ post.created_at|date:"d.m.Y H:i" }}</p>
+<!-- Posts -->
+<div class="row g-4">
 
-        {% if user == post.user or user.is_superuser %}
-            <a href="{% url 'post_edit' post.id %}">Редагувати</a>
-            <form action="{% url 'post_delete' post.id %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Видалити</button>
-            </form>
-        {% endif %}
-    </article>
-    <hr>
+{% for post in posts %}
+
+    <div class="col-md-6 col-lg-4">
+
+        <div class="card bg-dark text-light border-0 shadow-lg h-100 rounded-4 post-card">
+
+            <div class="card-body d-flex flex-column p-4">
+
+                <div class="mb-3">
+                    <span class="badge bg-info text-dark">
+                        <i class="bi bi-person"></i>
+                        {{ post.user.username }}
+                    </span>
+                </div>
+
+                <h3 class="card-title fw-bold mb-3">
+                    {{ post.title }}
+                </h3>
+
+                <p class="card-text text-secondary flex-grow-1">
+                    {{ post.content|truncatewords:25 }}
+                </p>
+
+                <div class="mt-4">
+
+                    <p class="small text-secondary mb-3">
+                        <i class="bi bi-clock"></i>
+                        {{ post.created_at|date:"d.m.Y H:i" }}
+                    </p>
+
+                    {% if user == post.user or user.is_superuser %}
+
+                    <div class="d-flex gap-2">
+
+                        <a href="{% url 'post_edit' post.id %}"
+                           class="btn btn-outline-info btn-sm rounded-pill px-3">
+                            <i class="bi bi-pencil"></i>
+                            Редагувати
+                        </a>
+
+                        <form action="{% url 'post_delete' post.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit"
+                                    class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                <i class="bi bi-trash"></i>
+                                Видалити
+                            </button>
+                        </form>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 {% empty %}
-    <p>Постів поки немає.</p>
+
+<div class="col-12">
+
+    <div class="card bg-dark border-0 shadow-lg rounded-4 text-center p-5">
+
+        <div class="card-body">
+
+            <i class="bi bi-file-earmark-x display-1 text-secondary"></i>
+
+            <h2 class="mt-4 text-light">
+                Постів поки немає
+            </h2>
+
+            <p class="text-secondary">
+                Стань першим, хто поділиться чимось цікавим 💻
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endfor %}
+
+</div>
+
+<style>
+.post-card {
+    transition: 0.3s ease;
+    background: rgba(17, 24, 39, 0.9) !important;
+    backdrop-filter: blur(10px);
+}
+
+.post-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 35px rgba(0, 255, 255, 0.15) !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #0dcaf0;
+}
+</style>
+
 {% endblock %}

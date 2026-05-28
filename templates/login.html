@@ -1,23 +1,61 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Вхід у систему</h1>
 
-    {% if form.errors %}
-        <p style="color: red;">Логін або пароль невірні. Спробуйте ще раз.</p>
-    {% endif %}
+<div class="row justify-content-center">
 
-    <form method="post">
-        {% csrf_token %}
-        <p>
-            <label>Логін:</label>
-            <input type="text" name="username">
-        </p>
-        <p>
-            <label>Пароль:</label>
-            <input type="password" name="password">
-        </p>
-        <button type="submit">Увійти</button>
-    </form>
-    <p>Немає аккаунту? <a href="{% url 'register' %}">Зареєструватися</a></p>
+    <div class="col-lg-5">
+
+        <div class="card bg-dark text-light border-0 shadow-lg rounded-4 p-4">
+
+            <div class="text-center mb-4">
+                <h1 class="fw-bold text-info">Вхід у систему</h1>
+                <p class="text-secondary">Увійди в PrograMMistic 💻</p>
+            </div>
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    Логін або пароль невірні. Спробуйте ще раз.
+                </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Логін</label>
+                    <input type="text"
+                           name="username"
+                           class="form-control bg-dark text-light border-secondary"
+                           placeholder="Введи логін">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Пароль</label>
+                    <input type="password"
+                           name="password"
+                           class="form-control bg-dark text-light border-secondary"
+                           placeholder="Введи пароль">
+                </div>
+
+                <button type="submit" class="btn btn-info w-100 rounded-pill py-2 shadow">
+                    Увійти
+                </button>
+            </form>
+
+            <hr class="border-secondary my-4">
+
+            <p class="text-center text-secondary mb-0">
+                Немає акаунту?
+                <a href="{% url 'register' %}" class="text-info text-decoration-none">
+                    Зареєструватися
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

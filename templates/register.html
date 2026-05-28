@@ -1,19 +1,84 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Реєстрація</h1>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
 
-        <div class="registration-form">
-            {{ u_form.as_p }}
+    <div>
+        <h1 class="fw-bold text-info">
+            Реєстрація
+        </h1>
+        <p class="text-secondary mb-0">
+            Створи акаунт і приєднуйся до PrograMMistic 💻
+        </p>
+    </div>
+
+    <a href="{% url 'login' %}" class="btn btn-outline-light rounded-pill px-4">
+        <i class="bi bi-box-arrow-in-right"></i>
+        Увійти
+    </a>
+
+</div>
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-6">
+
+        <div class="card bg-dark text-light border-0 shadow-lg rounded-4">
+
+            <div class="card-body p-4">
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-style">
+                        {{ u_form.as_p }}
+                    </div>
+
+                    <button type="submit" class="btn btn-info w-100 mt-3 rounded-pill py-2 shadow">
+                        Створити акаунт
+                    </button>
+
+                </form>
+
+            </div>
+
         </div>
 
-        <br>
-        <button type="submit">Створити аккаунт</button>
-    </form>
+        <p class="text-center text-secondary mt-3">
+            Вже маєш акаунт?
+            <a href="{% url 'login' %}" class="text-info text-decoration-none">
+                Увійти сюди
+            </a>
+        </p>
 
-    <hr>
-    <p>Вже маєте аккаунт? <a href="{% url 'login' %}">Увійти сюди</a></p>
+    </div>
+
+</div>
+
+<style>
+.form-style p {
+    margin-bottom: 15px;
+}
+
+.form-style input,
+.form-style textarea,
+.form-style select {
+    width: 100%;
+    background: #111827;
+    border: 1px solid #374151;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 12px;
+    outline: none;
+}
+
+.form-style input:focus,
+.form-style textarea:focus,
+.form-style select:focus {
+    border-color: #0dcaf0;
+    box-shadow: 0 0 0 0.15rem rgba(13, 202, 240, 0.25);
+}
+</style>
+
 {% endblock %}

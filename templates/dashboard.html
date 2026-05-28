@@ -1,9 +1,81 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>Вітаємо, <strong>{{ user.username }}</strong>! </p>
-    <p>
-PrograMMistic — це сучасна платформа для програмістів, де можна ділитися своїми ідеями, читати трендові пости про програмування та розвивати свої навички. Тут ти знайдеш корисний контент, спільноту однодумців і натхнення для нових проєктів.
-</p>
-<a href="{% url 'post_list' %}">Пости</a>
+
+<div class="text-center py-5">
+
+    <h1 class="display-4 fw-bold mb-3">
+        Вітаємо, <span class="text-info">{{ user.username }}</span> 👋
+    </h1>
+
+    <p class="lead text-light opacity-75 mx-auto" style="max-width: 850px;">
+        <strong>PrograMMistic</strong> — це сучасна платформа для програмістів,
+        де можна ділитися своїми ідеями, читати трендові пости про програмування
+        та розвивати свої навички.
+    </p>
+
+    <p class="text-secondary fs-5 mx-auto mb-5" style="max-width: 900px;">
+        Тут ти знайдеш корисний контент, спільноту однодумців,
+        натхнення для нових проєктів та можливість прокачувати свої знання щодня 💻
+    </p>
+
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+        <a href="{% url 'post_list' %}" class="btn btn-info btn-lg px-4 py-3 rounded-pill shadow">
+            <i class="bi bi-file-earmark-text"></i>
+            Переглянути пости
+        </a>
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'post_create' %}" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
+            <i class="bi bi-plus-circle"></i>
+            Створити пост
+        </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- Features -->
+<div class="row g-4 mt-4">
+
+    <div class="col-md-4">
+        <div class="card bg-dark text-light border-0 shadow-lg h-100 rounded-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-code-slash display-4 text-info"></i>
+                <h3 class="mt-3">Програмування</h3>
+                <p class="text-secondary">
+                    Ділись знаннями, лайфхаками та досвідом у світі IT.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-dark text-light border-0 shadow-lg h-100 rounded-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-people display-4 text-info"></i>
+                <h3 class="mt-3">Спільнота</h3>
+                <p class="text-secondary">
+                    Знаходь однодумців та обговорюй цікаві технології.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card bg-dark text-light border-0 shadow-lg h-100 rounded-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-lightbulb display-4 text-info"></i>
+                <h3 class="mt-3">Ідеї</h3>
+                <p class="text-secondary">
+                    Отримуй натхнення для власних проєктів та стартапів.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}
