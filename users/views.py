@@ -5,7 +5,7 @@ from .models import Profile
 from .forms import RegistrationForm
 
 
-# 🔥 НОВА ГОЛОВНА ЛОГІКА
+
 def home(request):
     if request.user.is_authenticated:
         return redirect('dashboard')
